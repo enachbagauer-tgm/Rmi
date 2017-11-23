@@ -42,9 +42,9 @@ import java.util.logging.Logger;
 import compute.Compute;
 import compute.Task;
 
-public class ComputeEngine implements Compute {
+public class LoadBalancerEngine implements Compute {
 
-    public ComputeEngine() {
+    public LoadBalancerEngine() {
         super();
     }
 
@@ -60,11 +60,11 @@ public class ComputeEngine implements Compute {
     }
     
     private static void createRegistry (int port, String name ) {
-    	Compute engine = new ComputeEngine();
+    	Compute engine = new LoadBalancerEngine();
         Compute stub;
 		try {
 			stub = (Compute) UnicastRemoteObject.exportObject(engine, 0); //Request handler, Parameter handler,  Object calling, 
-	        Registry registry = LocateRegistry.getRegistry("127.0.0.0",1099);
+	        Registry registry = LocateRegistry.createRegistry(port);
 	        registry.rebind(name, stub);//Map
 	        
 	        
